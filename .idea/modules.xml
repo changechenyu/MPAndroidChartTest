@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MPAndroidChartTest.iml" filepath="$PROJECT_DIR$/MPAndroidChartTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mplib/mplib.iml" filepath="$PROJECT_DIR$/mplib/mplib.iml" />
     </modules>
   </component>
 </project>
