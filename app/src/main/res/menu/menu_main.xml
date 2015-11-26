@@ -1,24 +1,30 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".DemoActivity">
-    <item android:id="@+id/action_material"
-        android:title="Material"
+    tools:context=".DemoActivity"
+    >
+    <item android:id="@+id/BarChart"
+        android:title="BarChart"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/LineChart"
+        android:title="LineChart"
         android:orderInCategory="100"
         app:showAsAction="never"  />
 
-    <item android:id="@+id/action_circles"
-        android:title="Circles"
+
+    <item android:id="@+id/PieChart"
+        android:title="PieChart"
+        android:orderInCategory="100"></item>
+
+    <item android:id="@+id/ScatterChart"
+        android:title="ScatterChart"
         android:orderInCategory="100"
         app:showAsAction="never"  />
-
-    <item android:id="@+id/action_water_drop"
-        android:title="WaterDrop"
-        android:orderInCategory="100"
-        app:showAsAction="never"   />
-
-    <item android:id="@+id/action_ring"
-        android:title="Ring"
-        android:orderInCategory="100"
-        app:showAsAction="never"  />
+    <item android:id="@+id/RadarChart"
+    android:title="RadarChart"
+    android:orderInCategory="100"
+    app:showAsAction="never"  />
 </menu>

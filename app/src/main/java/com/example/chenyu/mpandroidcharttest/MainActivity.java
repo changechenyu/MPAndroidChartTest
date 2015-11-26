@@ -1,10 +1,19 @@
 package com.example.chenyu.mpandroidcharttest;
 
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.AttributeSet;
+import android.view.InflateException;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -35,17 +44,16 @@ public class MainActivity extends AppCompatActivity {
 //        chart.animateXY(5000,5000);
 //        chart.animateX(5000);
         chart.animateY(3000);
-
         setContentView(chart);
         chart.setDescription("hello MPandroidChart");
         //显示右上角的3个点
         makeActionOverflowMenuShown();
     }
     public void initEntriesData(){
-        entries.add(new BarEntry(4f,0));
+        entries.add(new BarEntry(4f, 0));
         entries.add(new BarEntry(8f, 1));
         entries.add(new BarEntry(6f, 2));
-        entries.add(new BarEntry(12f,3));
+        entries.add(new BarEntry(12f, 3));
         entries.add(new BarEntry(18f, 4));
         entries.add(new BarEntry(9f, 5));
     }
@@ -61,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+//        setMenuItemTextColorToWhite(this);
         return true;
     }
 
@@ -70,19 +79,21 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         switch (id){
-            case R.id.action_material:
-                Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
+            case R.id.BarChart:
+                Toast.makeText(MainActivity.this, "BarChart", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.action_circles:
-                Toast.makeText(MainActivity.this, "2", Toast.LENGTH_SHORT).show();
+            case R.id.LineChart:
+                Toast.makeText(MainActivity.this, "LineChart", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.action_water_drop:
-                Toast.makeText(MainActivity.this, "3", Toast.LENGTH_SHORT).show();
+            case R.id.RadarChart:
+                Toast.makeText(MainActivity.this, "RadarChart", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.action_ring:
-                Toast.makeText(MainActivity.this, "4", Toast.LENGTH_SHORT).show();
+            case R.id.PieChart:
+                Toast.makeText(MainActivity.this, "PieChart", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.ScatterChart:
+                Toast.makeText(MainActivity.this, "ScatterChart", Toast.LENGTH_SHORT).show();
                 return true;
         }
 
@@ -100,5 +111,34 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
+    }
+    /**
+     * 修改 ActionBar 上的菜单字体颜色
+     */
+    public static void setMenuItemTextColorToWhite(final Activity activity){
+        activity.getLayoutInflater().setFactory(new LayoutInflater.Factory() {
+            @Override
+            public View onCreateView(String name, Context context,
+                                     AttributeSet attrs) {
+                if (name.equalsIgnoreCase("com.android.internal.view.menu.IconMenuItemView")
+                        || name.equalsIgnoreCase("com.android.internal.view.menu.ActionMenuItemView")) {
+                    try {
+                        LayoutInflater f = activity.getLayoutInflater();
+                        final View view = f.createView(name, null, attrs);
+                        System.out.println((view instanceof TextView));
+                        if (view instanceof TextView) {
+                            ((TextView) view).setTextColor(Color.RED/*这里修改颜色*/);
+                        }
+                        return view;
+                    } catch (InflateException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
+
+        });
     }
 }
