@@ -2,6 +2,7 @@ package com.example.chenyu.mpandroidcharttest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.LineChart:
                 Toast.makeText(MainActivity.this, "LineChart", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MainActivity.this,LineChart.class);
+                startActivity(intent);
                 return true;
             case R.id.RadarChart:
                 Toast.makeText(MainActivity.this, "RadarChart", Toast.LENGTH_SHORT).show();
