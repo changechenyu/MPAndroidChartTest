@@ -1,12 +1,14 @@
 package com.example.chenyu.mpandroidcharttest;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.InputFilter;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
@@ -15,24 +17,23 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 
 /**
- * Created by chenyu on 2015/11/26.
+ * Created by Think on 2015/11/29.
  */
-public class LineChart extends AppCompatActivity{
-    public com.github.mikephil.charting.charts.LineChart lineChart;
+public class LineCharFragment extends Fragment {
+    public LineChart lineChart;
     public ArrayList<String> x=new ArrayList<String>();
     public ArrayList<Entry> y=new ArrayList<Entry>();
     public ArrayList<LineDataSet> lineDataSets=new ArrayList<LineDataSet>();
     public LineData lineData=null;
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.liner_chart);
-        lineChart= (com.github.mikephil.charting.charts.LineChart) findViewById(R.id.spread_line_chart);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view= inflater.inflate(R.layout.liner_chart, container, false);
+        lineChart= (LineChart) view.findViewById(R.id.spread_line_chart);
         LineData resultLineData=getLineData(40, 100);
-        showChart(lineChart,resultLineData,Color.rgb(110,190,224));
+        showChart(lineChart,resultLineData, Color.rgb(110, 190, 224));
+        return view;
     }
-
     /**
      * 初始化数据
      * count 表示坐标点个数，range表示等下y值生成的范围
@@ -71,5 +72,4 @@ public class LineChart extends AppCompatActivity{
         legend.setTextColor(Color.WHITE);//设置颜色
         lineChart.animateX(3000);//X轴的动画
     }
-
 }

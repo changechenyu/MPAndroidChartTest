@@ -1,6 +1,8 @@
 package com.example.chenyu.mpandroidcharttest;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,25 +30,24 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    public BarChart barChart;
     public ArrayList<BarEntry> entries=new ArrayList<BarEntry>();
     public BarDataSet dataset;
     public ArrayList<String> labels=new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initEntriesData();
-        initLableData();
-        dataset= new BarDataSet(entries,"# of Calls");
-        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
-        BarChart chart=new BarChart(this);
-        BarData data=new BarData(labels,dataset);
-        LimitLine line=new LimitLine(10f);
-        chart.setData(data);
-//        chart.animateXY(5000,5000);
-//        chart.animateX(5000);
-        chart.animateY(3000);
-        setContentView(chart);
-        chart.setDescription("hello MPandroidChart");
+        setContentView(R.layout.activity_main);
+        FragmentManager fm = getFragmentManager();
+        // 开启Fragment事务
+        FragmentTransaction transaction = fm.beginTransaction();
+        BarCharFragment barCharFragment=new BarCharFragment();
+        transaction.replace(R.id.content, barCharFragment);
+        transaction.commit();
+//        barChart= (BarChart) findViewById(R.id.bar_chart);
+//        initEntriesData();
+//        initLableData();
+//        show();
         //显示右上角的3个点
         makeActionOverflowMenuShown();
     }
@@ -66,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
         labels.add("五月");
         labels.add("六月");
     }
+    public void show(){
+        dataset= new BarDataSet(entries,"# of Calls");
+        dataset.setColors(ColorTemplate.COLORFUL_COLORS);
+        BarData data=new BarData(labels,dataset);
+        LimitLine line=new LimitLine(10f);
+        barChart.setData(data);
+//        chart.animateXY(5000,5000);
+//        chart.animateX(5000);
+        barChart.animateY(3000);
+        barChart.setDescription("hello MPandroidChart");
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -79,15 +91,20 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        FragmentManager fm = getFragmentManager();
+        // 开启Fragment事务
+        FragmentTransaction transaction = fm.beginTransaction();
         int id = item.getItemId();
         switch (id){
             case R.id.BarChart:
-                Toast.makeText(MainActivity.this, "BarChart", Toast.LENGTH_SHORT).show();
+                BarCharFragment barCharFragment=new BarCharFragment();
+                transaction.replace(R.id.content, barCharFragment);
+                transaction.commit();
                 return true;
             case R.id.LineChart:
-                Toast.makeText(MainActivity.this, "LineChart", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MainActivity.this,LineChart.class);
-                startActivity(intent);
+                LineCharFragment lineCharFragment=new LineCharFragment();
+                transaction.replace(R.id.content, lineCharFragment);
+                transaction.commit();
                 return true;
             case R.id.RadarChart:
                 Toast.makeText(MainActivity.this, "RadarChart", Toast.LENGTH_SHORT).show();
@@ -99,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "ScatterChart", Toast.LENGTH_SHORT).show();
                 return true;
         }
+        // transaction.addToBackStack();
+        // 事务提交
 
         return super.onOptionsItemSelected(item);
     }
